@@ -48,8 +48,8 @@ The most recent high-profile application of the IAMC format is the [AR6 Scenario
 hosting the scenario ensemble supporting the quantitative assessment
 in the contribution by Working Group III to the IPCC's Sixth Assessment Report (AR6).
 
-Please refer to the Horizon 2020 project [openENTRANCE](https://github.com/openENTRANCE/openentrance#data-format-structure)
-for more information about the format and its usage in that project.
+Please refer to the [documentation](https://docs.ece.iiasa.ac.at/iamc.html)
+for more information about the format and its usage across model comparison projects.
 
 ## Writing a configuration file
 
