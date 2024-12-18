@@ -498,6 +498,10 @@ def main(config: Dict, inputs_path: str, results_path: str) -> pyam.IamDataFrame
                 elif "demand" in result.keys():
                     demands = result["demand"]
                     data = filter_final_energy(results, demands)
+                elif "dual_commodity":
+                    fuels = result["dual_commodity"]
+                    yearsplit = read_file(inputs_path, "yearsplit", "iso2_start")
+                    data = calculate_timeslice_dual(results, fuels, yearsplit)
                 else:
                     data = extract_results(results, technologies)
 
