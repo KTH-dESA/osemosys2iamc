@@ -10,6 +10,7 @@ from osemosys2iamc.resultify import (
     calculate_trade,
     read_file,
     iso_to_country,
+    calculate_timeslice_dual,
 )
 
 
@@ -533,6 +534,33 @@ class TestCapacity:
         ]
 
         expected = pd.DataFrame(data=data, columns=["REGION", "YEAR", "VALUE"])
+
+        pd.testing.assert_frame_equal(actual, expected)
+
+
+class TestDualPrice:
+    def test_dual_variable_cost(self):
+        folderpath = os.path.join("tests", "fixtures", "dual")
+        input_data = read_file(folderpath, "dual_values_EBa11", "iso2_start")
+        fuels = ["^.{2}(E2)"]
+        yearsplit = read_file(folderpath, "yearsplit", "iso2_start")
+        actual = calculate_timeslice_dual(input_data, fuels, yearsplit)
+
+        data = [
+            ["Austria", 2015, 1.0],
+            ["Austria", 2016, 1.0],
+            ["Austria", 2017, 1.0],
+            ["Austria", 2018, 1.0],
+            ["Belgium", 2015, 1.0],
+            ["Belgium", 2016, 1.0],
+            ["Belgium", 2017, 1.0],
+            ["Belgium", 2018, 1.0],
+        ]
+
+        expected = pd.DataFrame(data=data, columns=["REGION", "YEAR", "VALUE"])
+
+        print(actual)
+        print(expected)
 
         pd.testing.assert_frame_equal(actual, expected)
 

@@ -163,6 +163,21 @@ def read_file(path: str, osemosys_param: str, region_name_option: str) -> pd.Dat
     return df
 
 
+def calculate_timeslice_dual(
+    input_data: pd.DataFrame, fuels: list[str], yearsplit: pd.DataFrame
+):
+    """Calculate the weighted average dual value"""
+    filtered_data = filter_fuels(input_data, fuels).drop(columns="FUEL")
+
+    index = ["REGION", "TIMESLICE", "YEAR"]
+
+    weighted = filtered_data.set_index(index) * yearsplit.set_index(
+        ["TIMESLICE", "YEAR"]
+    )
+
+    return weighted.groupby(by=["REGION", "YEAR"]).sum().reset_index()
+
+
 def filter_regex(df: pd.DataFrame, patterns: List[str], column: str) -> pd.DataFrame:
     """Generic filtering of rows based on columns that match a list of patterns
 
